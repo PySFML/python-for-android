@@ -1,0 +1,524 @@
+diff -uN Python-2.6.2/configure Python-2.6.2POld/configure
+--- Python-2.6.2/configure	2009-03-31 03:56:14.000000000 +1000
++++ Python-2.6.2POld/configure	2009-08-17 12:19:15.000000000 +1000
+@@ -17059,14 +17059,14 @@
+ # exit Python
+ { echo "$as_me:$LINENO: checking for chflags" >&5
+ echo $ECHO_N "checking for chflags... $ECHO_C" >&6; }
+-if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
++#if test "$cross_compiling" = yes; then
++#  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
++#See \`config.log' for more details." >&5
++#echo "$as_me: error: cannot run test program while cross compiling
++#See \`config.log' for more details." >&2;}
++#   { (exit 1); exit 1; }; }
++#else
++cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+ cat confdefs.h >>conftest.$ac_ext
+@@ -17121,20 +17121,20 @@
+ 
+ fi
+ rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
++#fi
+ 
+ 
+ 
+ { echo "$as_me:$LINENO: checking for lchflags" >&5
+ echo $ECHO_N "checking for lchflags... $ECHO_C" >&6; }
+-if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
++#if test "$cross_compiling" = yes; then
++#  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
++#See \`config.log' for more details." >&5
++#echo "$as_me: error: cannot run test program while cross compiling
++#See \`config.log' for more details." >&2;}
++#   { (exit 1); exit 1; }; }
++#else
++cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+ cat confdefs.h >>conftest.$ac_ext
+@@ -17189,7 +17189,7 @@
+ 
+ fi
+ rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
++#fi
+ 
+ 
+ 
+@@ -24326,14 +24326,14 @@
+ 
+ { echo "$as_me:$LINENO: checking for %zd printf() format support" >&5
+ echo $ECHO_N "checking for %zd printf() format support... $ECHO_C" >&6; }
+-if test "$cross_compiling" = yes; then
+-  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&5
+-echo "$as_me: error: cannot run test program while cross compiling
+-See \`config.log' for more details." >&2;}
+-   { (exit 1); exit 1; }; }
+-else
+-  cat >conftest.$ac_ext <<_ACEOF
++#if test "$cross_compiling" = yes; then
++#  { { echo "$as_me:$LINENO: error: cannot run test program while cross compiling
++#See \`config.log' for more details." >&5
++#echo "$as_me: error: cannot run test program while cross compiling
++#See \`config.log' for more details." >&2;}
++#   { (exit 1); exit 1; }; }
++#else
++cat >conftest.$ac_ext <<_ACEOF
+ /* confdefs.h.  */
+ _ACEOF
+ cat confdefs.h >>conftest.$ac_ext
+@@ -24411,7 +24411,7 @@
+ echo "${ECHO_T}no" >&6; }
+ fi
+ rm -f core *.core core.conftest.* gmon.out bb.out conftest$ac_exeext conftest.$ac_objext conftest.$ac_ext
+-fi
++#fi
+ 
+ 
+ 
+diff -uN Python-2.6.2/configure.in Python-2.6.2POld/configure.in
+--- Python-2.6.2/configure.in	2009-03-31 03:56:14.000000000 +1000
++++ Python-2.6.2POld/configure.in	2009-08-17 12:19:15.000000000 +1000
+@@ -3656,48 +3656,48 @@
+   AC_MSG_RESULT(no)
+ fi
+ 
+-AC_MSG_CHECKING(for %zd printf() format support)
+-AC_TRY_RUN([#include <stdio.h>
+-#include <stddef.h>
+-#include <string.h>
+-
+-#ifdef HAVE_SYS_TYPES_H
+-#include <sys/types.h>
+-#endif
+-
+-#ifdef HAVE_SSIZE_T
+-typedef ssize_t Py_ssize_t;
+-#elif SIZEOF_VOID_P == SIZEOF_LONG
+-typedef long Py_ssize_t;
+-#else
+-typedef int Py_ssize_t;
+-#endif
+-
+-int main()
+-{
+-    char buffer[256];
+-
+-    if(sprintf(buffer, "%zd", (size_t)123) < 0)
+-       	return 1;
+-
+-    if (strcmp(buffer, "123"))
+-	return 1;
+-
+-    if (sprintf(buffer, "%zd", (Py_ssize_t)-123) < 0)
+-       	return 1;
+-
+-    if (strcmp(buffer, "-123"))
+-	return 1;
+-
+-    return 0;
+-}],
+-[AC_MSG_RESULT(yes)
+- AC_DEFINE(PY_FORMAT_SIZE_T, "z", [Define to printf format modifier for Py_ssize_t])],
+- AC_MSG_RESULT(no))
++#AC_MSG_CHECKING(for %zd printf() format support)
++#AC_TRY_RUN([#include <stdio.h>
++##include <stddef.h>
++##include <string.h>
++
++##ifdef HAVE_SYS_TYPES_H
++##include <sys/types.h>
++##endif
++
++##ifdef HAVE_SSIZE_T
++#typedef ssize_t Py_ssize_t;
++##elif SIZEOF_VOID_P == SIZEOF_LONG
++#typedef long Py_ssize_t;
++##else
++#typedef int Py_ssize_t;
++##endif
++#
++#int main()
++#{
++#    char buffer[256];
++#
++#    if(sprintf(buffer, "%zd", (size_t)123) < 0)
++#       	return 1;#
++#
++#    if (strcmp(buffer, "123"))
++#	return 1;
++#
++#    if (sprintf(buffer, "%zd", (Py_ssize_t)-123) < 0)
++#       	return 1;
++#
++#    if (strcmp(buffer, "-123"))
++#	return 1;
++#
++#   return 0;
++#}],
++#[AC_MSG_RESULT(yes)
++# AC_DEFINE(PY_FORMAT_SIZE_T, "z", [Define to printf format modifier for Py_ssize_t])],
++# AC_MSG_RESULT(no))
+ 
+ AC_CHECK_TYPE(socklen_t,,
+   AC_DEFINE(socklen_t,int,
+-            Define to `int' if <sys/socket.h> does not define.),[
++            Define to 'int' if <sys/socket.h> does not define.),[
+ #ifdef HAVE_SYS_TYPES_H
+ #include <sys/types.h>
+ #endif
+diff -uN Python-2.6.2/Makefile.pre.in Python-2.6.2POld/Makefile.pre.in
+--- Python-2.6.2/Makefile.pre.in	2009-02-24 21:07:44.000000000 +1000
++++ Python-2.6.2POld/Makefile.pre.in	2009-08-17 12:19:15.000000000 +1000
+@@ -175,6 +175,7 @@
+ 
+ PYTHON=		python$(EXE)
+ BUILDPYTHON=	python$(BUILDEXE)
++HOSTPYTHON=     ./$(BUILDPYTHON)
+ 
+ # The task to run while instrument when building the profile-opt target
+ PROFILE_TASK=	$(srcdir)/Tools/pybench/pybench.py -n 2 --with-gc --with-syscheck
+@@ -206,6 +207,8 @@
+ # Parser
+ PGEN=		Parser/pgen$(EXE)
+ 
++HOSTPGEN=   $(PGEN)
++
+ POBJS=		\
+ 		Parser/acceler.o \
+ 		Parser/grammar1.o \
+@@ -394,8 +397,8 @@
+ # Build the shared modules
+ sharedmods: $(BUILDPYTHON)
+ 	@case $$MAKEFLAGS in \
+-	*s*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py -q build;; \
+-	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' ./$(BUILDPYTHON) -E $(srcdir)/setup.py build;; \
++	*s*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' $(HOSTPYTHON) -E $(srcdir)/setup.py -q build;; \
++	*) $(RUNSHARED) CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' $(HOSTPYTHON) -E $(srcdir)/setup.py build;; \
+ 	esac
+ 
+ # Build static library
+@@ -517,7 +520,7 @@
+ 
+ $(GRAMMAR_H) $(GRAMMAR_C): $(PGEN) $(GRAMMAR_INPUT)
+ 		-@$(INSTALL) -d Include
+-		-$(PGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
++		-$(HOSTPGEN) $(GRAMMAR_INPUT) $(GRAMMAR_H) $(GRAMMAR_C)
+ 
+ $(PGEN):	$(PGENOBJS)
+ 		$(CC) $(OPT) $(LDFLAGS) $(PGENOBJS) $(LIBS) -o $(PGEN)
+@@ -886,24 +889,24 @@
+ 		done; \
+ 	done
+ 	$(INSTALL_DATA) $(srcdir)/LICENSE $(DESTDIR)$(LIBDEST)/LICENSE.txt
+-	PYTHONPATH=$(DESTDIR)$(LIBDEST)  $(RUNSHARED) \
+-		./$(BUILDPYTHON) -Wi -tt $(DESTDIR)$(LIBDEST)/compileall.py \
++	-PYTHONPATH=$(DESTDIR)$(LIBDEST)  $(RUNSHARED) \
++		$(HOSTPYTHON) -Wi -tt $(DESTDIR)$(LIBDEST)/compileall.py \
+ 		-d $(LIBDEST) -f \
+ 		-x 'bad_coding|badsyntax|site-packages' $(DESTDIR)$(LIBDEST)
+-	PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
+-		./$(BUILDPYTHON) -Wi -tt -O $(DESTDIR)$(LIBDEST)/compileall.py \
++	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
++		$(HOSTPYTHON) -Wi -tt -O $(DESTDIR)$(LIBDEST)/compileall.py \
+ 		-d $(LIBDEST) -f \
+ 		-x 'bad_coding|badsyntax|site-packages' $(DESTDIR)$(LIBDEST)
+ 	-PYTHONPATH=$(DESTDIR)$(LIBDEST)  $(RUNSHARED) \
+-		./$(BUILDPYTHON) -Wi -t $(DESTDIR)$(LIBDEST)/compileall.py \
++		$(HOSTPYTHON) -Wi -t $(DESTDIR)$(LIBDEST)/compileall.py \
+ 		-d $(LIBDEST)/site-packages -f \
+ 		-x badsyntax $(DESTDIR)$(LIBDEST)/site-packages
+ 	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
+-		./$(BUILDPYTHON) -Wi -t -O $(DESTDIR)$(LIBDEST)/compileall.py \
++		$(HOSTPYTHON) -Wi -t -O $(DESTDIR)$(LIBDEST)/compileall.py \
+ 		-d $(LIBDEST)/site-packages -f \
+ 		-x badsyntax $(DESTDIR)$(LIBDEST)/site-packages
+ 	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
+-		./$(BUILDPYTHON) -Wi -t -c "import lib2to3.pygram, lib2to3.patcomp;lib2to3.patcomp.PatternCompiler()"
++		$(HOSTPYTHON) -Wi -t -c "import lib2to3.pygram, lib2to3.patcomp;lib2to3.patcomp.PatternCompiler()"
+ 
+ # Create the PLATDIR source directory, if one wasn't distributed..
+ $(srcdir)/Lib/$(PLATDIR):
+@@ -1001,7 +1004,8 @@
+ # Install the dynamically loadable modules
+ # This goes into $(exec_prefix)
+ sharedinstall:
+-	$(RUNSHARED) ./$(BUILDPYTHON) -E $(srcdir)/setup.py install \
++	CC='$(CC)' LDSHARED='$(BLDSHARED)' OPT='$(OPT)' CROSS_COMPILE='$(CROSS_COMPILE)' \
++	$(RUNSHARED) $(HOSTPYTHON) -E $(srcdir)/setup.py install \
+ 	   	--prefix=$(prefix) \
+ 		--install-scripts=$(BINDIR) \
+ 		--install-platlib=$(DESTSHARED) \
+diff -uN Python-2.6.2/setup.py Python-2.6.2POld/setup.py
+--- Python-2.6.2/setup.py	2009-04-01 04:20:48.000000000 +1000
++++ Python-2.6.2POld/setup.py	2009-08-17 12:19:15.000000000 +1000
+@@ -17,7 +17,7 @@
+ from distutils.command.install_lib import install_lib
+ 
+ # This global variable is used to hold the list of modules to be disabled.
+-disabled_module_list = []
++disabled_module_list = ['_ctypes']
+ 
+ def add_dir_to_list(dirlist, dir):
+     """Add the directory 'dir' to the list 'dirlist' (at the front) if
+@@ -267,33 +267,40 @@
+             self.announce('WARNING: skipping import check for Cygwin-based "%s"'
+                 % ext.name)
+             return
++        if os.environ.get('CROSS_COMPILE_TARGET') == 'yes':
++            return
++
+         ext_filename = os.path.join(
+             self.build_lib,
+             self.get_ext_filename(self.get_ext_fullname(ext.name)))
+         try:
+             imp.load_dynamic(ext.name, ext_filename)
+         except ImportError, why:
+-            self.failed.append(ext.name)
+-            self.announce('*** WARNING: renaming "%s" since importing it'
+-                          ' failed: %s' % (ext.name, why), level=3)
+-            assert not self.inplace
+-            basename, tail = os.path.splitext(ext_filename)
+-            newname = basename + "_failed" + tail
+-            if os.path.exists(newname):
+-                os.remove(newname)
+-            os.rename(ext_filename, newname)
+-
+-            # XXX -- This relies on a Vile HACK in
+-            # distutils.command.build_ext.build_extension().  The
+-            # _built_objects attribute is stored there strictly for
+-            # use here.
+-            # If there is a failure, _built_objects may not be there,
+-            # so catch the AttributeError and move on.
+-            try:
+-                for filename in self._built_objects:
+-                    os.remove(filename)
+-            except AttributeError:
+-                self.announce('unable to remove files (ignored)')
++            if os.environ.get('CROSS_COMPILE_TARGET') != "yes":
++                self.announce('*** WARNING: renaming "%s" since importing it'
++                              ' failed: %s' % (ext.name, why), level=3)
++                assert not self.inplace
++                basename, tail = os.path.splitext(ext_filename)
++                newname = basename + "_failed" + tail
++                if os.path.exists(newname):
++                    os.remove(newname)
++                os.rename(ext_filename, newname)
++
++                # XXX -- This relies on a Vile HACK in
++                # distutils.command.build_ext.build_extension().  The
++                # _built_objects attribute is stored there strictly for
++                # use here.
++                # If there is a failure, _built_objects may not be there,
++                # so catch the AttributeError and move on.
++                try:
++                    for filename in self._built_objects:
++                        os.remove(filename)
++                except AttributeError:
++                    self.announce('unable to remove files (ignored)')
++            else:
++                self.announce('WARNING: "%s" failed importing, but we leave it '
++                              'because we are cross-compiling' %
++                              ext.name)
+         except:
+             exc_type, why, tb = sys.exc_info()
+             self.announce('*** WARNING: importing extension "%s" '
+@@ -665,7 +672,7 @@
+ 
+         if (ssl_incs is not None and
+             ssl_libs is not None and
+-            openssl_ver >= 0x00907000):
++            openssl_ver >= 0x00907000 and False):
+             # The _hashlib module wraps optimized implementations
+             # of hash functions from the OpenSSL library.
+             exts.append( Extension('_hashlib', ['_hashopenssl.c'],
+@@ -685,7 +692,7 @@
+                             depends = ['md5.h']) )
+             missing.append('_hashlib')
+ 
+-        if (openssl_ver < 0x00908000):
++        if (True or openssl_ver < 0x00908000):
+             # OpenSSL doesn't do these until 0.9.8 so we'll bring our own hash
+             exts.append( Extension('_sha256', ['sha256module.c']) )
+             exts.append( Extension('_sha512', ['sha512module.c']) )
+diff --ignore-file-name-case -wuprN Python-2.6.2/Modules/posixmodule.c python-src//Modules/posixmodule.c
+--- Python-2.6.2/Modules/posixmodule.c	2009-04-06 03:47:37.000000000 -0300
++++ python-src//Modules/posixmodule.c	2011-01-05 17:09:37.000000000 -0300
+@@ -154,7 +154,7 @@ corresponding Unix manual entries for mo
+ #endif
+ #define HAVE_SYSTEM	1
+ #define HAVE_WAIT       1
+-#define HAVE_TTYNAME	1
++#undef HAVE_TTYNAME
+ #endif  /* PYOS_OS2 && PYCC_GCC && __VMS */
+ #endif  /* _MSC_VER */
+ #endif  /* __BORLANDC__ */
+@@ -9062,5 +9062,3 @@ INITFUNC(void)
+ #ifdef __cplusplus
+ }
+ #endif
+-
+-
+diff --ignore-file-name-case -wuprN Python-2.6.2/Objects/stringlib/localeutil.h python-src//Objects/stringlib/localeutil.h
+--- Python-2.6.2/Objects/stringlib/localeutil.h	2008-06-23 21:42:10.000000000 -0300
++++ python-src//Objects/stringlib/localeutil.h	2011-01-05 17:09:37.000000000 -0300
+@@ -40,9 +40,8 @@ _Py_InsertThousandsGrouping(STRINGLIB_CH
+ 			    Py_ssize_t *count,
+ 			    int append_zero_char)
+ {
+-	struct lconv *locale_data = localeconv();
+-	const char *grouping = locale_data->grouping;
+-	const char *thousands_sep = locale_data->thousands_sep;
++	const char *grouping = 3;
++	const char *thousands_sep = ",";
+ 	Py_ssize_t thousands_sep_len = strlen(thousands_sep);
+ 	STRINGLIB_CHAR *pend = NULL; /* current end of buffer */
+ 	STRINGLIB_CHAR *pmax = NULL; /* max of buffer */
+diff --ignore-file-name-case -wuprN Python-2.6.2/Python/pystrtod.c python-src//Python/pystrtod.c
+--- Python-2.6.2/Python/pystrtod.c	2008-07-18 21:24:05.000000000 -0300
++++ python-src//Python/pystrtod.c	2011-01-05 17:09:39.000000000 -0300
+@@ -42,7 +42,6 @@ PyOS_ascii_strtod(const char *nptr, char
+ {
+ 	char *fail_pos;
+ 	double val = -1.0;
+-	struct lconv *locale_data;
+ 	const char *decimal_point;
+ 	size_t decimal_point_len;
+ 	const char *p, *decimal_point_pos;
+@@ -54,8 +53,7 @@ PyOS_ascii_strtod(const char *nptr, char
+ 
+ 	fail_pos = NULL;
+ 
+-	locale_data = localeconv();
+-	decimal_point = locale_data->decimal_point;
++	decimal_point = ".";
+ 	decimal_point_len = strlen(decimal_point);
+ 
+ 	assert(decimal_point_len != 0);
+@@ -193,8 +191,7 @@ PyOS_ascii_strtod(const char *nptr, char
+ Py_LOCAL_INLINE(void)
+ change_decimal_from_locale_to_dot(char* buffer)
+ {
+-	struct lconv *locale_data = localeconv();
+-	const char *decimal_point = locale_data->decimal_point;
++	const char *decimal_point = ".";
+ 
+ 	if (decimal_point[0] != '.' || decimal_point[1] != 0) {
+ 		size_t decimal_point_len = strlen(decimal_point);
+@@ -348,8 +345,7 @@ Py_LOCAL_INLINE(int)
+ add_thousands_grouping(char* buffer, size_t buf_size)
+ {
+ 	Py_ssize_t len = strlen(buffer);
+-	struct lconv *locale_data = localeconv();
+-	const char *decimal_point = locale_data->decimal_point;
++	const char *decimal_point = ".";
+ 
+ 	/* Find the decimal point, if any.  We're only concerned
+ 	   about the characters to the left of the decimal when
+diff --ignore-file-name-case -wuprN Python-2.6.2/Modules/pwdmodule.c python-src//Modules/pwdmodule.c
+--- Python-2.6.2/Modules/pwdmodule.c	2008-06-09 01:58:54.000000000 -0300
++++ python-src//Modules/pwdmodule.c	2011-01-05 17:09:37.000000000 -0300
+@@ -68,14 +68,14 @@ mkpwent(struct passwd *p)
+ #define SETS(i,val) sets(v, i, val)
+ 
+ 	SETS(setIndex++, p->pw_name);
+-#ifdef __VMS
++#if defined(__VMS) || defined(ANDROID)
+ 	SETS(setIndex++, "");
+ #else
+ 	SETS(setIndex++, p->pw_passwd);
+ #endif
+ 	SETI(setIndex++, p->pw_uid);
+ 	SETI(setIndex++, p->pw_gid);
+-#ifdef __VMS
++#if defined(__VMS) || defined(ANDROID)
+ 	SETS(setIndex++, "");
+ #else
+ 	SETS(setIndex++, p->pw_gecos);
+diff --ignore-file-name-case -wuprN python-src-orig/Modules/posixmodule.c python-src/Modules/posixmodule.c
+--- python-src-orig/Modules/posixmodule.c	2014-06-12 05:54:33.054994680 +0200
++++ python-src/Modules/posixmodule.c	2014-06-12 05:54:59.659126613 +0200
+@@ -96,6 +96,10 @@ corresponding Unix manual entries for mo
+ #include <sys/loadavg.h>
+ #endif
+ 
++#ifdef ANDROID
++#undef HAVE_DEV_PTMX
++#endif
++
+ /* Various compilers have only certain posix functions */
+ /* XXX Gosh I wish these were all moved into pyconfig.h */
+ #if defined(PYCC_VACPP) && defined(PYOS_OS2)
+diff --ignore-file-name-case -wuprN python-src-orig/pyconfig.h.in python-src/pyconfig.h.in
+--- python-src-orig/pyconfig.h.in	2014-06-12 05:54:33.022994541 +0200
++++ python-src/pyconfig.h.in	2014-06-12 05:55:37.847315990 +0200
+@@ -1079,5 +1079,7 @@
+ #define STRICT_SYSV_CURSES /* Don't use ncurses extensions */
+ #endif
+ 
++#define ANDROID
++
+ #endif /*Py_PYCONFIG_H*/
+
+diff --ignore-file-name-case -wuprN python-src-orig/Makefile.pre.in python-src/Makefile.pre.in
+--- python-src-orig/Makefile.pre.in	2009-02-24 12:07:44.000000000 +0100
++++ python-src/Makefile.pre.in	2014-06-12 07:17:18.539617201 +0200
+@@ -411,12 +411,7 @@ $(LIBRARY): $(LIBRARY_OBJS)
+ 	$(RANLIB) $@
+ 
+ libpython$(VERSION).so: $(LIBRARY_OBJS)
+-	if test $(INSTSONAME) != $(LDLIBRARY); then \
+-		$(LDSHARED) $(LDFLAGS) -Wl,-h$(INSTSONAME) -o $(INSTSONAME) $(LIBRARY_OBJS) $(MODLIBS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST); \
+-		$(LN) -f $(INSTSONAME) $@; \
+-	else \
+-		$(LDSHARED) $(LDFLAGS) -o $@ $(LIBRARY_OBJS) $(MODLIBS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST); \
+-	fi
++	 $(LDSHARED) $(LDFLAGS) -o $@ $(LIBRARY_OBJS) $(MODLIBS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST)
+ 
+ libpython$(VERSION).dylib: $(LIBRARY_OBJS)
+ 	 $(CC) -dynamiclib -Wl,-single_module $(LDFLAGS) -undefined dynamic_lookup -Wl,-install_name,$(prefix)/lib/libpython$(VERSION).dylib -Wl,-compatibility_version,$(VERSION) -Wl,-current_version,$(VERSION) -o $@ $(LIBRARY_OBJS) $(SHLIBS) $(LIBC) $(LIBM) $(LDLAST); \
+@@ -830,7 +825,7 @@ LIBSUBDIRS=	lib-tk site-packages test te
+ 		multiprocessing multiprocessing/dummy \
+ 		lib-old \
+ 		curses $(MACHDEPS)
+-libinstall:	build_all $(srcdir)/Lib/$(PLATDIR)
++libinstall:	build_all
+ 	@for i in $(SCRIPTDIR) $(LIBDEST); \
+ 	do \
+ 		if test ! -d $(DESTDIR)$$i; then \
+@@ -905,16 +900,6 @@ libinstall:	build_all $(srcdir)/Lib/$(PL
+ 	-PYTHONPATH=$(DESTDIR)$(LIBDEST) $(RUNSHARED) \
+ 		./$(BUILDPYTHON) -Wi -t -c "import lib2to3.pygram, lib2to3.patcomp;lib2to3.patcomp.PatternCompiler()"
+ 
+-# Create the PLATDIR source directory, if one wasn't distributed..
+-$(srcdir)/Lib/$(PLATDIR):
+-	mkdir $(srcdir)/Lib/$(PLATDIR)
+-	cp $(srcdir)/Lib/plat-generic/regen $(srcdir)/Lib/$(PLATDIR)/regen
+-	export PATH; PATH="`pwd`:$$PATH"; \
+-	export PYTHONPATH; PYTHONPATH="`pwd`/Lib"; \
+-	export DYLD_FRAMEWORK_PATH; DYLD_FRAMEWORK_PATH="`pwd`"; \
+-	export EXE; EXE="$(BUILDEXE)"; \
+-	cd $(srcdir)/Lib/$(PLATDIR); $(RUNSHARED) ./regen
+-
+ # Install the include files
+ INCLDIRSTOMAKE=$(INCLUDEDIR) $(CONFINCLUDEDIR) $(INCLUDEPY) $(CONFINCLUDEPY)
+ inclinstall:
