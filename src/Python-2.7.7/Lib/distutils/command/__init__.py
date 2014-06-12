@@ -22,6 +22,7 @@ __all__ = ['build',
            'bdist_dumb',
            'bdist_rpm',
            'bdist_wininst',
+           'bdist_apk',
            'upload',
            'check',
            # These two are reserved for future use:

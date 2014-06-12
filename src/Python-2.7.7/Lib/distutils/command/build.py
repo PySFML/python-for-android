@@ -71,13 +71,13 @@ class build(Command):
         if self.plat_name is None:
             self.plat_name = get_platform()
         else:
-            # plat-name only supported for windows (other platforms are
-            # supported via ./configure flags, if at all).  Avoid misleading
-            # other platforms.
-            if os.name != 'nt':
+            # plat-name only supported for windows or android (other 
+            # platforms are supported via ./configure flags, if at all).  
+            # Avoid misleading other platforms.
+            if not (os.name == 'nt' or self.plat_name == "android"):
                 raise DistutilsOptionError(
-                            "--plat-name only supported on Windows (try "
-                            "using './configure --help' on your platform)")
+                            "--plat-name only supported on Windows or for Android "
+                            "(try using './configure --help' on your platform)")
 
         plat_specifier = ".%s-%s" % (self.plat_name, sys.version[0:3])
 

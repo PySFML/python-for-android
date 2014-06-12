@@ -96,6 +96,16 @@ class build_ext (Command):
          "path to the SWIG executable"),
         ('user', None,
          "add user include, library and rpath"),
+        ('android-ndk=', None,
+         "location of the android ndk"),
+        ('arch=', None,
+         "the target architecture"),
+        ('version=', None,
+         "the compiler version"),
+        ('stl=', None,
+         "the STL version to link against"),
+        ('api-level=', None,
+         "the level of the Android API to use"),
         ]
 
     boolean_options = ['inplace', 'debug', 'force', 'swig-cpp', 'user']
@@ -127,6 +137,13 @@ class build_ext (Command):
         self.swig_cpp = None
         self.swig_opts = None
         self.user = None
+
+        self.android_ndk = os.environ.get('ANDROID_NDK')
+        
+        self.arch = None
+        self.version = 0
+        self.stl = None
+        self.api_level = 0
 
     def finalize_options(self):
         from distutils import sysconfig
@@ -272,6 +289,40 @@ class build_ext (Command):
                 self.library_dirs.append(user_lib)
                 self.rpath.append(user_lib)
 
+        # Don't allow Android specific compilation flags to be used when
+        # not cross-compiling for Android
+        if (self.arch or self.version or self.stl or self.api_level) \
+            and self.plat_name != "android":
+            raise DistutilsSetupError, \
+                  "--arch, --version, --stl and --api-level arguments are " \
+                  "only meant to be used when cross-compiling for Android"
+    
+        # todo
+        if self.plat_name == "android":
+            if self.android_ndk is None:
+                print("error, no ndk location specified")
+                
+        # todo: check if ndk location is correct
+        # todo: add argument version of python
+        # todo: check if version of python is installed in ndk
+        
+        # Define default values for Android specific compilation flags
+        # and use the our Android compiler
+        if self.plat_name == "android":
+            self.compiler = "android"
+
+            if self.arch is None:
+                self.arch = "armeabi"
+
+            if self.version == 0:
+                self.version = 4.8
+
+            if self.stl is None:
+                self.stl = "libc++"
+
+            if self.api_level == 0:
+                self.api_level = 9
+
     def run(self):
         from distutils.ccompiler import new_compiler
 
@@ -310,6 +361,13 @@ class build_ext (Command):
         # late initialization of compiler even if they shouldn't...)
         if os.name == 'nt' and self.plat_name != get_platform():
             self.compiler.initialize(self.plat_name)
+
+        # If we are cross-compiling for Android, init the compiler now
+        # with specific stuff to that compiler (architecture, compiler
+        # version, stl implementation, api level)
+        if self.plat_name == "android":
+            self.compiler.initialize(self.android_ndk, self.arch, self.version, 
+                self.stl, self.api_level)
 
         # And make sure that any compile/link-related options (which might
         # come from the command-line or from the setup script) are set in

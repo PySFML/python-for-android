@@ -66,7 +66,7 @@ class bdist(Command):
 
     # Establish the preferred order (for the --help-formats option).
     format_commands = ['rpm', 'gztar', 'bztar', 'ztar', 'tar',
-                       'wininst', 'zip', 'msi']
+                       'wininst', 'zip', 'msi', 'apk']
 
     # And the real information.
     format_command = {'rpm':   ('bdist_rpm',  "RPM distribution"),
@@ -77,7 +77,8 @@ class bdist(Command):
                       'wininst': ('bdist_wininst',
                                   "Windows executable installer"),
                       'zip':   ('bdist_dumb', "ZIP file"),
-                      'msi':   ('bdist_msi',  "Microsoft Installer")
+                      'msi':   ('bdist_msi',  "Microsoft Installer"),
+                      'apk':   ('bdist_apk',  "Android package")
                       }
 
 

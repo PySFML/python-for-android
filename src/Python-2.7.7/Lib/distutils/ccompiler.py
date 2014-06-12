@@ -940,6 +940,8 @@ compiler_class = { 'unix':    ('unixccompiler', 'UnixCCompiler',
                                "Borland C++ Compiler"),
                    'emx':     ('emxccompiler', 'EMXCCompiler',
                                "EMX port of GNU C Compiler for OS/2"),
+                   'android': ('androidcompiler', 'AndroidCompiler',
+                               "standard UNIX-sytle compiler found in the Android NDK"),
                  }
 
 def show_compilers():
