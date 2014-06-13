@@ -1,22 +1,25 @@
+# common things to ignore
 *.o
 *.pyc
+dist
+build
+
 
 # created after ./configure
-src/Python-2.7.7/Makefile
-src/Python-2.7.7/Makefile.pre
-src/Python-2.7.7/Misc/python.pc
-src/Python-2.7.7/Modules/Setup
-src/Python-2.7.7/Modules/Setup.config
-src/Python-2.7.7/Modules/Setup.local
-src/Python-2.7.7/Modules/config.c
-src/Python-2.7.7/Modules/ld_so_aix
-src/Python-2.7.7/config.log
-src/Python-2.7.7/config.status
-src/Python-2.7.7/pyconfig.h
+Makefile
+Makefile.pre
+python.pc
+Setup
+Setup.config
+Setup.local
+config.c
+ld_so_aix
+config.log
+config.status
+pyconfig.h
 
 # created after make
-src/Python-2.7.7/build/
-src/Python-2.7.7/libpython2.7.a
-src/Python-2.7.7/pybuilddir.txt
-src/Python-2.7.7/python
-src/Python-2.7.7/python-gdb.py
+libpython2.7.a
+pybuilddir.txt
+python
+python-gdb.py
